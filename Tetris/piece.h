@@ -4,10 +4,10 @@
 class Piece {
 protected:
 	int state, color;
-	Coordinates* c;
+	vector<Coordinates> c;
 public:
 	~Piece();
-	Coordinates* getCMove();
+	vector<Coordinates> getCMove();
 	virtual bool RotateCheck(const Board& b, int rot) = 0;
 	bool BottomCheck(const Board& b);
 	virtual void RotateRight();

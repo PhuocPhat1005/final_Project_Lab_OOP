@@ -6,7 +6,7 @@ int main() {
 	Board b;
 	b.ShowBorder();
 	Coordinates cMove(11, top + 1);
-	PieceI p1;
+	PieceZ p1;
 	p1.Show();
 
 	time_t originalTime = time(0);

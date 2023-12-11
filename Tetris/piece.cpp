@@ -1,20 +1,16 @@
 #include "piece.h"
 #include "board.h"
 
-Piece::~Piece() {
-	delete[] c;
+Piece::~Piece(){
+	c.clear();
 }
-Coordinates* Piece::getCMove() {
-	Coordinates* result = new Coordinates[4];
-	for (int i = 0; i < 4; ++i) {
-		result[i] = c[i];
-	}
-	return result;
+vector<Coordinates> Piece::getCMove() {
+	return c;
 }
 bool Piece::BottomCheck(const Board& b) {
 	for (int i = 0; i < 4; ++i) {
 		if (b.getG(c[i].x, c[i].y + 1) != 0) {
-			Sleep(1000);
+			Sleep(1000);//Cho piece cham day 1 giay(tu do di chuyen trai phai, xoay) roi moi khoa toa do vao board
 			return true;
 		}
 	}
@@ -90,13 +86,12 @@ void Piece::UnShow() {
 
 
 PieceI::PieceI() {
-	c = new Coordinates[4];
 	color = 11; //Bright cyan
 	state = 0;
-	c[0] = { 11, top + 1 };
-	c[1] = { 11, top + 2 };
-	c[2] = { 11, top + 3 };
-	c[3] = { 11, top + 4 };
+	c.push_back({ 11, top + 1 });
+	c.push_back({ 11, top + 2 });
+	c.push_back({ 11, top + 3 });
+	c.push_back({ 11, top + 4 });
 }
 bool PieceI::RotateCheck(const Board& b, int rot) {
 	int s = state + rot;
@@ -141,13 +136,12 @@ void PieceI::Show() {
 
 
 PieceO::PieceO() {
-	c = new Coordinates[4];
 	color = 14; //Yellow
 	state = 0;
-	c[0] = { 9, top + 1 };
-	c[1] = { 11, top + 1 };
-	c[2] = { 9, top };
-	c[3] = { 11, top };
+	c.push_back({ 9, top + 1 });
+	c.push_back({ 11, top + 1 });
+	c.push_back({ 9, top });
+	c.push_back({ 11, top });
 }
 bool PieceO::RotateCheck(const Board& b, int rot) {
 	return true;
@@ -170,13 +164,12 @@ void PieceO::Show() {
 
 
 PieceJ::PieceJ() {
-	c = new Coordinates[4];
 	color = 1; //Blue
 	state = 0;
-	c[0] = { 9, top + 1 };
-	c[1] = { 11, top + 1 };
-	c[2] = { 11, top };
-	c[3] = { 11, top - 1 };
+	c.push_back({ 9, top + 1 });
+	c.push_back({ 11, top + 1 });
+	c.push_back({ 11, top });
+	c.push_back({ 11, top - 1 });
 }
 bool PieceJ::RotateCheck(const Board& b, int rot) {
 	int s = state + rot;
@@ -237,13 +230,12 @@ void PieceJ::Show() {
 
 
 PieceL::PieceL() {
-	c = new Coordinates[4];
 	color = 12; //Bright red
 	state = 0;
-	c[0] = { 11, top + 1 };
-	c[1] = { 9, top + 1 };
-	c[2] = { 9, top };
-	c[3] = { 9, top - 1 };
+	c.push_back({ 11, top + 1 });
+	c.push_back({ 9, top + 1 });
+	c.push_back({ 9, top });
+	c.push_back({ 9, top - 1 });
 }
 bool PieceL::RotateCheck(const Board& b, int rot) {
 	int s = state + rot;
@@ -304,13 +296,12 @@ void PieceL::Show() {
 
 
 PieceT::PieceT() {
-	c = new Coordinates[4];
 	color = 5; //Purple
 	state = 0;
-	c[0] = { 11, top + 1 };
-	c[1] = { 9, top + 1 };
-	c[2] = { 13, top + 1 };
-	c[3] = { 11, top };
+	c.push_back({ 11, top + 1 });
+	c.push_back({ 9, top + 1 });
+	c.push_back({ 13, top + 1 });
+	c.push_back({ 11, top });
 }
 bool PieceT::RotateCheck(const Board& b, int rot) {
 	int s = state + rot;
@@ -371,13 +362,12 @@ void PieceT::Show() {
 
 
 PieceZ::PieceZ() {
-	c = new Coordinates[4];
 	color = 4; //Red
 	state = 0;
-	c[0] = { 11, top + 1 };
-	c[1] = { 9, top + 1 };
-	c[2] = { 11, top };
-	c[3] = { 13, top };
+	c.push_back({ 11, top + 1 });
+	c.push_back({ 9, top + 1 });
+	c.push_back({ 11, top });
+	c.push_back({ 13, top });
 }
 bool PieceZ::RotateCheck(const Board& b, int rot) {
 	int s = state + rot;
@@ -418,9 +408,12 @@ void PieceZ::Show() {
 
 
 PieceS::PieceS() {
-	c = new Coordinates[4];
 	color = 10; //Bright green
 	state = 0;
+	c.push_back({ 9, top + 1 });
+	c.push_back({ 11, top + 1 });
+	c.push_back({ 9, top });
+	c.push_back({ 7, top });
 	c[0] = { 9, top + 1 };
 	c[1] = { 11, top + 1 };
 	c[2] = { 9, top };
