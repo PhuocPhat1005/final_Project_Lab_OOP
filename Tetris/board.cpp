@@ -63,18 +63,38 @@ void Board::ShowBoard() {
 		}
 	}
 }
+void Board::ShowQueue(vector<Piece*> p) {
+
+}
+void Board::AddBoard(Piece* p) {
+	for (int i = 0; i < 4; ++i) {
+		int _x = (p->getCMove(i).x - 1) / 2;
+		int _y = p->getCMove(i).y - 1 - top;
+		gameBoard[_y][_x] = p->getColor();
+	}
+}
+bool Board::EndBoard(Piece* p) {
+	for (int i = 0; i < 4; ++i) {
+		if (p->getCMove(i).y <= top)
+			return true;
+	}
+	return false;
+}
 void Board::ScoreBoard() {
-	vector<vector<int>> gameBoard2(width, vector<int>(height, 0));
-	bool clearRow = true;
-	int countRow = height - 1;
-	for (int j = countRow; j >= 0; --j) {
+	vector<vector<int>> gameBoard2(height, vector<int>(width, 0));
+	bool fullRow = true;
+	int countH = height - 1;
+	for (int j = height - 1; (j >= 0) && (countH >= 0); --j) {
+		fullRow = true;
 		for (int i = 0; i < width; ++i) {
-			clearRow = true;
-			if (gameBoard[j][i] == 0)
-				clearRow = false;
+			fullRow = true;
+			if (gameBoard[j][i] == 0) {
+				fullRow = false;
+				i = width;
+			}
 		}
-		if (clearRow) {
-			gameBoard2[countRow--] = gameBoard[j];
+		if (!fullRow) {
+			gameBoard2[countH--] = gameBoard[j];
 		}
 	}
 	gameBoard = gameBoard2;

@@ -9,10 +9,11 @@
 #include <chrono>
 #include <vector>
 #include <algorithm>
+#include <queue>
 
 using namespace std;
 #define block (char)219<<(char)219;
-const int top = 4;
+const int top = 5;
 const int bottom = top + 1 + 20;
 
 class Coordinates;
