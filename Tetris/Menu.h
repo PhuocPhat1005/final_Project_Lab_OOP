@@ -56,13 +56,35 @@ public:
 
 class PauseGame : public Menu
 {
+private:
+    bool is_pausing;
+    int counting;
 public:
     PauseGame();
+    PauseGame(const bool&, const int&);
     ~PauseGame();
+
+    void setIsPausing(const bool&);
+    void setCounting(const int&);
+
+    bool getIsPausing() const;
+    int getCounting() const;
 
     void MakeTitle();
     void MakeMenuTable();
 
     void ContentPauseGame();
-    void unshownPause();
+    void UnshownPause();
+
+    void PlayPausing();
+};
+
+class GameOver : public Menu
+{
+public:
+    GameOver();
+    ~GameOver();
+
+    void MakeTitle();
+    void MakeMenuTable();
 };

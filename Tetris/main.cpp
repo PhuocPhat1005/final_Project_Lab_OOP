@@ -9,7 +9,7 @@
 #include "Menu.cpp"
 #include "source.cpp"
 
-int playingMainGame()
+int playingMainGame(bool& lose)
 {
     Board b;
     b.ShowBorder();
@@ -24,38 +24,15 @@ int playingMainGame()
     time_t originalTime = time(0);
     char keyboard = 'a';
 
-	bool is_pausing = false;
-	PauseGame* pauseGame = NULL;
+	PauseGame* pauseGame = new PauseGame(false, 0);
 
     while (true) {
-		while (is_pausing)
-		{
-			if (pauseGame == NULL)
-			{
-				pauseGame = new PauseGame; 
-				pauseGame->MakeTitle();
-				pauseGame->ContentPauseGame();
-			}
-			keyboard = getch();
-			if (keyboard == 'p')
-			{
-				is_pausing = false;
-				pauseGame->unshownPause();
-				break;
-			}
-		}
-		if (is_pausing == false)
-		{
-			if (pauseGame)
-			{
-				delete pauseGame;
-				pauseGame = NULL;
-			}
-		}
-
         if (p[0]->BottomCheck(b)) {
             if (b.EndBoard(p[0]))
+			{
+				lose = true;
                 break;
+			}
 
             p[0]->UnShow();
             b.AddBoard(p[0]);
@@ -71,7 +48,8 @@ int playingMainGame()
             p[0]->Show();
         }
         else {
-            p[0]->MoveDownTime(b, originalTime);
+			if (pauseGame->getIsPausing() == false)
+            	p[0]->MoveDownTime(b, originalTime);
 
             if (kbhit()) {
                 keyboard = getch();
@@ -92,7 +70,21 @@ int playingMainGame()
                     p[0]->MoveDown(b);
                 }
                 else if (keyboard == 'p') {
-					is_pausing = true;
+					pauseGame->setCounting(pauseGame->getCounting() + 1);
+					pauseGame->setIsPausing(true);
+
+					pauseGame->MakeMenuTable();
+					pauseGame->MakeTitle();
+					pauseGame->ContentPauseGame();
+
+					if (pauseGame->getCounting() >= 2)
+					{
+						pauseGame->setIsPausing(false);
+						pauseGame->setCounting(0);
+						pauseGame->UnshownPause();
+						
+						p[0]->MoveDownTime(b, originalTime);
+					}
                 }
 				else if (keyboard == 'b') {
 					break;
@@ -102,6 +94,10 @@ int playingMainGame()
     }
 
     deletePieces(p);
+
+	delete pauseGame;
+	pauseGame = NULL;
+
     return 0;
 }
 
@@ -117,6 +113,7 @@ int main()
 
     bool is_in_menu = true;
     bool is_quit = false;
+	bool lose = false;
     char keyboard = '\0';
 
     /* Di chuyen len xuong trong Menu bang phim W (di len), S (di xuong) */
@@ -145,7 +142,9 @@ int main()
                 {
                     is_in_menu = false;
                     system("cls");
-                    playingMainGame();
+                    playingMainGame(lose);
+					if (lose)
+						break;
                 }
                 else if (choice == 1) // score board
                 {
@@ -190,6 +189,16 @@ int main()
             }
         }
     }
+
+	if (lose)
+	{
+		system("cls");
+		GameOver* gameOver = new GameOver;
+		gameOver->MakeMenuTable();
+		gameOver->MakeTitle();
+		delete gameOver;
+		gameOver = NULL;
+	}
 
     delete menu;
     menu = NULL;

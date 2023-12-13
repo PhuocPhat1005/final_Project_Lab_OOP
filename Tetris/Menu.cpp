@@ -335,57 +335,145 @@ void QuitGame::ContentQuitGame()
     cout << "`------'   `--'       `------'       `------'   `--'       `------' ";
 }   
 
-/*==================== CREDITS ====================*/
+/*==================== PAUSE GAME ====================*/
 
 PauseGame::PauseGame()
 {
+}
+
+PauseGame::PauseGame(const bool& pausing, const int& counting)
+{
+    this->is_pausing = pausing;
+    this->counting = counting;
 }
 
 PauseGame::~PauseGame()
 {
 }
 
+void PauseGame::setIsPausing(const bool& p)
+{
+    is_pausing = p;
+}
+
+void PauseGame::setCounting(const int& c)
+{
+    counting = c;
+}
+
+bool PauseGame::getIsPausing() const
+{
+    return is_pausing;
+}
+
+int PauseGame::getCounting() const
+{
+    return counting;
+}
+
 void PauseGame::MakeTitle()
 {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (3));
-    gotoxy(50, 5);
+    gotoxy(100, 5);
     cout << "__________  _____   ____ ___  _________.___ _______    ________ ";
-    gotoxy(50, 6);
+    gotoxy(100, 6);
     cout << "\\______   \\/  _  \\ |    |   \\/   _____/|   |\\      \\  /  _____/ ";
-    gotoxy(50, 7);
+    gotoxy(100, 7);
     cout << "|     ___/  /_\\  \\|    |   /\\_____  \\ |   |/   |   \\/   \\  ___ ";
-    gotoxy(50, 8);
+    gotoxy(100, 8);
     cout << "|    |  /    |    \\    |  / /        \\|   /    |    \\    \\_\\  \\";
-    gotoxy(50, 9);
+    gotoxy(100, 9);
     cout << "|____|  \\____|__  /______/ /_______  /|___\\____|__  /\\______  /";
-    gotoxy(50, 10);
+    gotoxy(100, 10);
     cout <<"                \\/                 \\/             \\/        \\/ ";
 }
 
 void PauseGame::MakeMenuTable()
 {
+    for (int i = 0; i < 8; i++)
+    {
+        gotoxy(96, 5 + i);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (227));
+        for (int j = 0; j < 70; j++)
+        {
+            cout << " ";
+        }
+    }
 }
 
 void PauseGame::ContentPauseGame()
 {
-    gotoxy(55, 12);
+    gotoxy(110, 12);
     cout << "Press \"P\" to continue playing !!!";
 }
 
-void PauseGame::unshownPause()
+void PauseGame::UnshownPause()
 {
-    gotoxy(50, 5);
-    cout << "                                                                       ";
-    gotoxy(50, 6);
-    cout << "                                                                       ";
-    gotoxy(50, 7);
-    cout << "                                                                       ";
-    gotoxy(50, 8);
-    cout << "                                                                       ";
-    gotoxy(50, 9);
-    cout << "                                                                       ";
-    gotoxy(50, 10);
-    cout <<"                                                                        ";
-    gotoxy(55, 12);
-    cout <<"                                                                        ";
+    for (int i = 0; i < 8; i++)
+    {
+        gotoxy(96, 5 + i);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (0));
+        for (int j = 0; j < 70; j++)
+        {
+            cout << " ";
+        }
+    }
+}
+
+void PauseGame::PlayPausing()
+{
+    this->MakeTitle();
+    this->ContentPauseGame();
+}
+
+/*==================== GAME OVER ====================*/
+
+GameOver::GameOver()
+{
+}
+
+GameOver::~GameOver()
+{
+}
+
+void GameOver::MakeTitle()
+{                                                                                                                              
+    gotoxy(20, 5);
+    cout << "    _____          _____        ______  _______        ______                 _____     ____      ____      ______        _____   ";
+    gotoxy(20, 6);
+    cout << "___|\\    \\     ___|\\    \\      |      \\/       \\   ___|\\     \\           ____|\\    \\   |    |    |    | ___|\\     \\   ___|\\    \\  ";
+    gotoxy(20, 7);
+    cout << "/    /\\    \\   /    /\\    \\    /          /\\     \\ |     \\     \\         /     /\\    \\  |    |    |    ||     \\     \\ |    |\\    \\ ";
+    gotoxy(20, 8);
+    cout << "|    |  |____| |    |  |    |  /     /\\   / /\\     ||     ,_____/|       /     /  \\    \\ |    |    |    ||     ,_____/||    | |    |";
+    gotoxy(20, 9);
+    cout << "|    |    ____ |    |__|    | /     /\\ \\_/ / /    /||     \\--'\\_|/      |     |    |    ||    |    |    ||     \\--'\\_|/|    |/____/ ";
+    gotoxy(20, 10);
+    cout << "|    |   |    ||    .--.    ||     |  \\|_|/ /    / ||     /___/|        |     |    |    ||    |    |    ||     /___/|  |    |\\    \\ ";
+    gotoxy(20, 11);
+    cout << "|    |   |_,  ||    |  |    ||     |       |    |  ||     \\____|\\       |\\     \\  /    /||\\    \\  /    /||     \\____|\\ |    | |    |";
+    gotoxy(20, 12);
+    cout << "|\\ ___\\___/  /||____|  |____||\\____\\       |____|  /|____ '     /|      | \\_____\\/____/ || \\ ___\\/___ / ||____ '     /||____| |____|";
+    gotoxy(20, 13);
+    cout << "| |   /____ / ||    |  |    || |    |      |    | / |    /_____/ |       \\ |    ||    | / \\ |   ||   | / |    /_____/ ||    | |    |";
+    gotoxy(20, 14);
+    cout << "\\|___|    | / |____|  |____| \\|____|      |____|/  |____|     | /        \\|____||____|/   \\|___||___|/  |____|     | /|____| |____|";
+    gotoxy(20, 15);
+    cout << "\\( |____|/    \\(      )/      \\(          )/       \\( |_____|/            \\(    )/        \\(    )/      \\( |_____|/   \\(     )/  ";
+    gotoxy(20, 16);
+    cout << "    '   )/        '      '        '          '         '    )/                '    '          '    '        '    )/       '     '   ";
+    gotoxy(20, 17);
+    cout << "        '                                                   '                                                    '                  ";
+}
+
+void GameOver::MakeMenuTable()
+{
+    for (int i = 0; i < 13; i++)
+    {
+        gotoxy(18, 5 + i);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (250));    
+        for (int j = 0; j < 136; j++)
+        {
+            cout << " ";
+        }
+    }
 }
