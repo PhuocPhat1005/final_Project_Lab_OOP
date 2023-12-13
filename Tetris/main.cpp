@@ -1,8 +1,13 @@
-﻿#include "header.h"
-#include "board.h"
-#include "piece.h"
+﻿// #include "header.h"
+// #include "board.h"
+// #include "piece.h"
 
-#include "Menu.h"
+// #include "Menu.h"
+
+#include "board.cpp"
+#include "piece.cpp"
+#include "Menu.cpp"
+#include "source.cpp"
 
 int playingMainGame()
 {
@@ -19,7 +24,35 @@ int playingMainGame()
     time_t originalTime = time(0);
     char keyboard = 'a';
 
+	bool is_pausing = false;
+	PauseGame* pauseGame = NULL;
+
     while (true) {
+		while (is_pausing)
+		{
+			if (pauseGame == NULL)
+			{
+				pauseGame = new PauseGame; 
+				pauseGame->MakeTitle();
+				pauseGame->ContentPauseGame();
+			}
+			keyboard = getch();
+			if (keyboard == 'p')
+			{
+				is_pausing = false;
+				pauseGame->unshownPause();
+				break;
+			}
+		}
+		if (is_pausing == false)
+		{
+			if (pauseGame)
+			{
+				delete pauseGame;
+				pauseGame = NULL;
+			}
+		}
+
         if (p[0]->BottomCheck(b)) {
             if (b.EndBoard(p[0]))
                 break;
@@ -58,9 +91,12 @@ int playingMainGame()
                 else if (keyboard == 's') {
                     p[0]->MoveDown(b);
                 }
-                else if (keyboard == 'b') {
-                    break;
+                else if (keyboard == 'p') {
+					is_pausing = true;
                 }
+				else if (keyboard == 'b') {
+					break;
+				}
             }
         }
     }

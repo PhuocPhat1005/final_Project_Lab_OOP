@@ -53,3 +53,16 @@ public:
 
     void ContentQuitGame();
 };
+
+class PauseGame : public Menu
+{
+public:
+    PauseGame();
+    ~PauseGame();
+
+    void MakeTitle();
+    void MakeMenuTable();
+
+    void ContentPauseGame();
+    void unshownPause();
+};

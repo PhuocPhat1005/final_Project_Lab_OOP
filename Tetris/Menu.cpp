@@ -310,7 +310,6 @@ void QuitGame::MakeTitle()
 
 void QuitGame::MakeMenuTable()
 {
-
 }
 
 void QuitGame::ContentQuitGame()
@@ -335,3 +334,58 @@ void QuitGame::ContentQuitGame()
     gotoxy(80, 28);
     cout << "`------'   `--'       `------'       `------'   `--'       `------' ";
 }   
+
+/*==================== CREDITS ====================*/
+
+PauseGame::PauseGame()
+{
+}
+
+PauseGame::~PauseGame()
+{
+}
+
+void PauseGame::MakeTitle()
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (3));
+    gotoxy(50, 5);
+    cout << "__________  _____   ____ ___  _________.___ _______    ________ ";
+    gotoxy(50, 6);
+    cout << "\\______   \\/  _  \\ |    |   \\/   _____/|   |\\      \\  /  _____/ ";
+    gotoxy(50, 7);
+    cout << "|     ___/  /_\\  \\|    |   /\\_____  \\ |   |/   |   \\/   \\  ___ ";
+    gotoxy(50, 8);
+    cout << "|    |  /    |    \\    |  / /        \\|   /    |    \\    \\_\\  \\";
+    gotoxy(50, 9);
+    cout << "|____|  \\____|__  /______/ /_______  /|___\\____|__  /\\______  /";
+    gotoxy(50, 10);
+    cout <<"                \\/                 \\/             \\/        \\/ ";
+}
+
+void PauseGame::MakeMenuTable()
+{
+}
+
+void PauseGame::ContentPauseGame()
+{
+    gotoxy(55, 12);
+    cout << "Press \"P\" to continue playing !!!";
+}
+
+void PauseGame::unshownPause()
+{
+    gotoxy(50, 5);
+    cout << "                                                                       ";
+    gotoxy(50, 6);
+    cout << "                                                                       ";
+    gotoxy(50, 7);
+    cout << "                                                                       ";
+    gotoxy(50, 8);
+    cout << "                                                                       ";
+    gotoxy(50, 9);
+    cout << "                                                                       ";
+    gotoxy(50, 10);
+    cout <<"                                                                        ";
+    gotoxy(55, 12);
+    cout <<"                                                                        ";
+}
