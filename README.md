@@ -7,7 +7,7 @@
 3. UML Drawing: [Link on UML](https://drive.google.com/file/d/1519umnmPkTXIcXMwCVYYMOZSyCQkUFKl/view?usp=sharing)
 
 | No. | Task |Content| Deadline |
-| --- | --- | --- |
+| --- | --- |------| --- |
 | 1 | Menu | Can thiet ke lai hinh anh cho dep hon |
 | 2 | Piece | Completed|
 | 3 | Board | Can ve board cho time, next, level, name|
