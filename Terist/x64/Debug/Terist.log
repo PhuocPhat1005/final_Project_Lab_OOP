@@ -1,5 +1,0 @@
-﻿  board.cpp
-D:\HCMUS\OOP\TetrisProject\New folder (2)\final_Project_Lab_OOP\Terist\board.cpp(183,22): warning C4244: 'initializing': conversion from 'double' to 'time_t', possible loss of data
-D:\HCMUS\OOP\TetrisProject\New folder (2)\final_Project_Lab_OOP\Terist\board.cpp(210,25): warning C4244: '=': conversion from 'double' to 'time_t', possible loss of data
-D:\HCMUS\OOP\TetrisProject\New folder (2)\final_Project_Lab_OOP\Terist\board.cpp(259,28): warning C4244: '=': conversion from 'double' to 'time_t', possible loss of data
-  Terist.vcxproj -> D:\HCMUS\OOP\TetrisProject\New folder (2)\final_Project_Lab_OOP\x64\Debug\Terist.exe
