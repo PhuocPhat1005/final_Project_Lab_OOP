@@ -1,3 +1,2 @@
-﻿  Menu.cpp
-C:\Users\thaih\Documents\K22\Nam_2\HK1\ObjectOrientedPrograming\Final_ThucHanh\Terist_3\Terist\Terist\Menu.cpp(156): warning C4715: 'Menu::getChoiceFromMenu': not all control paths return a value
-  Terist.vcxproj -> C:\Users\thaih\Documents\K22\Nam_2\HK1\ObjectOrientedPrograming\Final_ThucHanh\Terist_3\Terist\x64\Debug\Terist.exe
+﻿  board.cpp
+  Terist.vcxproj -> D:\HCMUS\OOP\TetrisProject\TeristVersionN\x64\Debug\Terist.exe
