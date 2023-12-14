@@ -19,6 +19,7 @@
 | 9 | Sound| Chua hoan thanh|
 | 10 | Pause| Chua hoan thanh|
 | 11 | HighScore| Chua hoan thanh|
+| 12 | Hold | Conpletetd|
 
 
 ## MUST BE DONE BEFORE 23:59:00 15th December, 2023
