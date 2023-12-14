@@ -1,7 +1,6 @@
 #include "menu.h"
 
-Menu::Menu()
-{
+Menu::Menu() {
     row = 4;
     col = 2;
     for (int i = 0; i < row; i++)

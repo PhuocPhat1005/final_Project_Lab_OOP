@@ -113,7 +113,6 @@ void Board::ScoreBoard(int &line) {
 }
 void Board::GeneratePiece() {
 	int type = rand() % 7;//chon ngau nhien cac piece de dua vao hang doi
-	//int type = 4;
 	if (type == 0) {
 		Piece* p1 = new PieceI;
 		pQueue.push_back(p1);

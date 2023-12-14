@@ -99,7 +99,7 @@ void Piece::PreShow(int place) {
 	}
 	else if (place == 0) {
 	}
-	else if (place == 1) {
+	else if (place == 1) {//Tu 1 den 3 la cac piece dang xep hang doi
 		c.push_back({ 30, top + 4 });
 		iter_swap(c.begin(), c.begin() + c.size() - 1);
 	}

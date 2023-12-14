@@ -26,7 +26,7 @@ int main()
     bool is_quit = false;
     char keyboard = '\0';
 
-    /* Di chuyen len xuong trong Menu bang phim W (di len), S (di xuong) */
+    // Di chuyen len xuong trong Menu bang phim W (di len), S (di xuong)
     while (!is_quit)
     {
         if (kbhit())

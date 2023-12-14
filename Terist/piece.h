@@ -6,7 +6,7 @@ protected:
 	int state;//1 piece gom 4 trang thai, block I voi O cung tinh la co 4 luon de tien lap trinh
 	int color;//mau sac cua tung piece
 	vector<Coordinates> c;//1 piece gom 4 block
-	static map<int, double> speed;
+	static map<int, double> speed;//Thong tin ve toc do roi
 public:
 	~Piece();
 	int getColor();

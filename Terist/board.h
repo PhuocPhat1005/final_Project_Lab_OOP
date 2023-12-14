@@ -32,5 +32,5 @@ public:
 	void Hold();
 	void UnHold();
 	void Play();
-	//Tinh nang co roi: 
+	//Tinh nang co roi: Choi
 };

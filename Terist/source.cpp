@@ -22,7 +22,7 @@ Coordinates::Coordinates(int _x, int _y) {
 }
 
 
-
+//Xoa man hinh, khong dung system(
 void clearScreen() {
 	HANDLE                     hStdOut;
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
