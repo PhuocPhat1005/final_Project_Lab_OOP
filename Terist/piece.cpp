@@ -1,6 +1,8 @@
 #include "piece.h"
 #include "board.h"
 
+
+map<int, double> Piece::speed = { {1, 1.0}, {2, 0.9}, {3, 0.8}, {4, 0.7}, {5, 0.6}, {6, 0.5}, {7, 0.4}, {8, 3}, {9, 0.25}, {10, 0.2}, {11, 0.15} };
 Piece::~Piece() {
 	c.clear();
 }
@@ -11,6 +13,8 @@ Coordinates Piece::getCMove(const int& i) {
 	return c[i];
 }
 bool Piece::BottomCheck(const Board& b) {
+	if (c.size() > 4)
+		return false;
 	for (int i = 0; i < 4; ++i) {
 		if (b.getG(c[i].x, c[i].y + 1) != 0) {
 			Sleep(1000);//Cho piece cham day 1 giay(tu do di chuyen trai phai, xoay) roi moi khoa toa do vao board
@@ -62,11 +66,12 @@ void Piece::MoveDown(const Board& b) {
 	}
 	this->PreShow();
 }
-void Piece::MoveDownTime(const Board& b, time_t& originalTime) {
-	time_t nowTime = time(0);
-	double timeLeft = difftime(nowTime, originalTime);
-	if (timeLeft == 1.0) {
-		originalTime = time(0);
+void Piece::MoveDownTime(const Board& b, time_t& originalTime, int level) {
+	time_t nowTime = double(clock());
+	double timeLeft = ((double)nowTime - (double)originalTime) / double(CLOCKS_PER_SEC);
+	double s = speed[min(level, speed.size())];
+	if (timeLeft == s) {
+		originalTime = double(clock());
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 		for (int i = 0; i < 4; ++i) {
 			if (b.getG(c[i].x, c[i].y + 1) != 0)
@@ -86,13 +91,11 @@ void Piece::PreShow(int place) {
 		iter_swap(c.begin(), c.begin() + c.size() - 1);
 		c.erase(c.begin() + c.size() - 1);
 	}
-	if (place == 5) {
+	if (place == 5) {//Hien thi moi thoat khoi Hold
 		iter_swap(c.begin(), c.begin() + c.size() - 1);
 		//c.erase(c.begin() + c.size() - 1);
 		c[0].x = 11;
 		c[0].y = top + 1;
-		gotoxy(30, 3);
-		cout << c[0].x << "   " << c[0].y << "   ";
 	}
 	else if (place == 0) {
 	}
@@ -108,7 +111,7 @@ void Piece::PreShow(int place) {
 		c.push_back({ 30, top + 14 });
 		iter_swap(c.begin(), c.begin() + c.size() - 1);
 	}
-	else if (place == 4){
+	else if (place == 4) {//Hien thi khoi Hold
 		c.push_back({ 30, 5 });
 		iter_swap(c.begin(), c.begin() + c.size() - 1);
 	}

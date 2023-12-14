@@ -23,7 +23,7 @@ public:
 	bool EndBoard(Piece* p);//Tinh nang co roi : Kiem tra viec choi thua (co block tran ra ngoai)
 	//Tinh nang co roi (dang loi thoi gian): Kiem tra xem piece da cham day hay chua (cho 1 giay de nguoi choi di chuyen, xoay tuy thich),
 	//neu cham day roi thi chuan bi co dinh vao Board thong qua AddBoard
-	void ScoreBoard();//Tinh nang co roi: Hang nao full roi thi xoa hang do
+	void ScoreBoard(int &line);//Tinh nang co roi: Hang nao full roi thi xoa hang do
 	//Tinh nang muon them: xoa 1 hang +10 diem, xoa 4 hang +50 diem va thong bao TETRIS
 	void GeneratePiece();
 	//Tinh nang co roi: Tao san 4 piece "xep hang" cho roi vao Board, neu co piece bi xoa thi them vao 1 piece moi
@@ -32,4 +32,5 @@ public:
 	void Hold();
 	void UnHold();
 	void Play();
+	//Tinh nang co roi: 
 };

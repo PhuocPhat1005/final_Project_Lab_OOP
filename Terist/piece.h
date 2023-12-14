@@ -6,6 +6,7 @@ protected:
 	int state;//1 piece gom 4 trang thai, block I voi O cung tinh la co 4 luon de tien lap trinh
 	int color;//mau sac cua tung piece
 	vector<Coordinates> c;//1 piece gom 4 block
+	static map<int, double> speed;
 public:
 	~Piece();
 	int getColor();
@@ -24,7 +25,7 @@ public:
 	//Tinh nang co roi: Piece di chuyen sang trai theo lenh nguoi choi
 	void MoveDown(const Board& b);
 	//Tinh nang co roi: Piece di chuyen xuong duoi theo lenh nguoi choi
-	void MoveDownTime(const Board& b, time_t& originalTime);
+	void MoveDownTime(const Board& b, time_t& originalTime, int level = 1);
 	//Tinh nang co roi: Piece tu roi xuong duoi theo thoi gian
 	//Tinh nang muon co: choi cang nhieu diem thi piece roi cang nhanh
 	virtual void PreShow(int place = 0);

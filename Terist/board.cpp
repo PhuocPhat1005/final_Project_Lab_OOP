@@ -1,5 +1,6 @@
 #include "board.h"
 #include "piece.h"
+#include "menu.h"
 
 Board::Board() {
 	width = 10;
@@ -65,7 +66,7 @@ void Board::ShowBoard() {
 	}
 }
 void Board::ShowQueue() {
-	for(int i = 1; i <= 3; ++i)
+	for (int i = 1; i <= 3; ++i)
 		pQueue[i]->PreShow(i);
 }
 void Board::UnShowQueue() {
@@ -90,7 +91,7 @@ bool Board::EndBoard(Piece* p) {
 	}
 	return false;
 }
-void Board::ScoreBoard() {
+void Board::ScoreBoard(int &line) {
 	vector<vector<int>> gameBoard2(height, vector<int>(width, 0));
 	bool fullRow = true;
 	int countH = height - 1;
@@ -104,6 +105,7 @@ void Board::ScoreBoard() {
 			}
 		}
 		if (!fullRow) {
+			line++;
 			gameBoard2[countH--] = gameBoard[j];
 		}
 	}
@@ -148,77 +150,116 @@ void Board::DeletePieces() {
 	pQueue.clear();
 }
 void Board::Hold() {
+	gotoxy(width * 2 + 3, 0);
+	cout << "Hold:";
 	GeneratePiece();
 	pQueue[0]->PreShow(4);
-	iter_swap(pQueue.begin(), pQueue.begin() + 4);
+	for (int i = 0; i < pQueue.size(); ++i) {
+		pQueue[0]->UnShow();
+	}
+	pQueue.push_back(pQueue[0]);
+	pQueue.erase(pQueue.begin());
 	pQueue[0]->PreShow(5);
+	ShowQueue();
 }
 void Board::UnHold() {
+	gotoxy(width * 2 + 3, 0);
+	cout << "Hold:";
+	for (int i = 1; i <= top; ++i) {
+		gotoxy(width * 2 + 3, i);
+		cout << "                              ";
+	}
 	pQueue[0]->PreShow(4);
-	iter_swap(pQueue.begin(), pQueue.begin() + 4);
+	iter_swap(pQueue.begin(), pQueue.end() - 1);
 	pQueue[0]->PreShow(5);
 }
-void Board::Play(){
+void Board::Play() {
 	ShowBorder();
 	srand((unsigned)time(NULL));
 	for (int i = 0; i < 4; ++i) {//hang doi gom 4 piece, cac piece se tuan tu roi xuong
 		GeneratePiece();
 	}
 	ShowQueue();
-	time_t originalTime = time(0);
+	time_t originalTime = double(clock());
 	char keyboard = 'a';
+	PauseGame* pauseGame = new PauseGame(false, 0);
 	bool firstHold = true;
+	bool isHold = false;
+	int level = 1;
+	int line = 0;
 
 	while (true) {
-		if (pQueue[0]->BottomCheck(*this)) {
+		if (pQueue[0]->BottomCheck(*this)) {//kiem tra xem piece co cham day hay chua
 			if (EndBoard(pQueue[0]))
 				break;
 
 			AddBoard(pQueue[0]);
-			ScoreBoard();
+			ScoreBoard(line);
+			if (line >= 10) {//Xoa 10 dong thi +1 level
+				line -= 10;
+				level++;
+			}
 			ShowBoard();
 
 			delete pQueue[0];
 			pQueue.erase(pQueue.begin());
 			GeneratePiece();
-			if(firstHold && pQueue.size() > 4)
-				iter_swap(pQueue.begin() + 3, pQueue.begin() + 4);
+			if (pQueue.size() > 4)
+				iter_swap(pQueue.end() - 2, pQueue.end() - 1);
 
-			originalTime = time(0);
+			originalTime = double(clock());
 			pQueue[0]->PreShow();
 			ShowQueue();
+			isHold = false;
 		}
 		else {
-			pQueue[0]->MoveDownTime(*this, originalTime);
+			if (!pauseGame->getIsPausing())
+				pQueue[0]->MoveDownTime(*this, originalTime, level);
 
 			if (kbhit()) {
 				keyboard = getch();
-
-				if (keyboard == 'm' && pQueue[0]->RotateCheck(*this, 1)) {
-					pQueue[0]->RotateRight();
+				if (!pauseGame->getIsPausing()) {
+					if (keyboard == 'm' && pQueue[0]->RotateCheck(*this, 1)) {
+						pQueue[0]->RotateRight();
+					}
+					else if (keyboard == 'n' && pQueue[0]->RotateCheck(*this, 3)) {
+						pQueue[0]->RotateLeft();
+					}
+					else if (keyboard == 'd') {
+						pQueue[0]->MoveRight(*this);
+					}
+					else if (keyboard == 'a') {
+						pQueue[0]->MoveLeft(*this);
+					}
+					else if (keyboard == 's') {
+						pQueue[0]->MoveDown(*this);
+					}
+					else if (keyboard == 'h' && firstHold && !isHold) {
+						firstHold = false;
+						isHold = true;
+						pQueue[0]->UnShow();
+						Hold();
+					}
+					else if (keyboard == 'h' && !firstHold && !isHold) {
+						isHold = true;
+						pQueue[0]->UnShow();
+						UnHold();
+					}
 				}
-				else if (keyboard == 'n' && pQueue[0]->RotateCheck(*this, 3)) {
-					pQueue[0]->RotateLeft();
+				if (keyboard == 'p') {
+					pauseGame->setIsPausing();
+					if(pauseGame->getIsPausing()){
+						pauseGame->MakeMenuTable();
+						pauseGame->MakeTitle();
+						pauseGame->ContentPauseGame();
+					
+					}
+					else{
+						pauseGame->UnshownPause();
+						originalTime = double(clock());
+					}
 				}
-				else if (keyboard == 'd') {
-					pQueue[0]->MoveRight(*this);
-				}
-				else if (keyboard == 'a') {
-					pQueue[0]->MoveLeft(*this);
-				}
-				else if (keyboard == 's') {
-					pQueue[0]->MoveDown(*this);
-				}
-				else if (keyboard == 'h' && firstHold) {
-					firstHold = false;
-					pQueue[0]->UnShow();
-					Hold();
-				}
-				else if (keyboard == 'h' && !firstHold) {
-					pQueue[0]->UnShow();
-					UnHold();
-				}
-				else if (keyboard == 'b') {
+				if (keyboard == 'b') {
 					DeletePieces();
 					return;
 				}

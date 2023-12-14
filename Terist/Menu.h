@@ -53,3 +53,37 @@ public:
 
     void ContentQuitGame();
 };
+
+class PauseGame : public Menu
+{
+private:
+    bool is_pausing;
+    int counting;
+public:
+    PauseGame(const bool&, const int&);
+    ~PauseGame();
+
+    void setIsPausing();
+    void setCounting(const int&);
+
+    bool getIsPausing() const;
+    int getCounting() const;
+
+    void MakeTitle();
+    void MakeMenuTable();
+
+    void ContentPauseGame();
+    void UnshownPause();
+
+    void PlayPausing();
+};
+
+class GameOver : public Menu
+{
+public:
+    GameOver();
+    ~GameOver();
+
+    void MakeTitle();
+    void MakeMenuTable();
+};
